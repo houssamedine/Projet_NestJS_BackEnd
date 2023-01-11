@@ -1,3 +1,4 @@
+import { Task } from './../../../tasks/entities/task.entity';
 import { User } from './../../../users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
@@ -22,7 +23,7 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       username,
       password,
       database,
-      entities: [User],
+      entities: [User, Task],
       synchronize: true,
     };
   }

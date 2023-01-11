@@ -19,6 +19,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from './commun/config/database/database.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -38,6 +39,8 @@ import { DatabaseModule } from './commun/config/database/database.module';
     TypeOrmModule.forRootAsync({ useClass: DatabaseService }),
 
     DatabaseModule,
+
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [
