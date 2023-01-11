@@ -3,9 +3,9 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { LogInterceptInterceptor } from './commun/interceptors/log-intercept/log-intercept.interceptor';
 import { ConfigService } from '@nestjs/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  
   const app = await NestFactory.create(AppModule);
 
   //configuration de ficher .ENV
@@ -18,7 +18,7 @@ async function bootstrap() {
 
   //
   app.useGlobalInterceptors(new LogInterceptInterceptor());
-  
+
   //
   app.enableCors({
     origin: '*',
@@ -33,6 +33,17 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  //Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Api Swagger')
+    .setDescription('Api using JsonPlaceHolder')
+    .setVersion('1.0')
+    //.addTag('Api')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api', app, document);
 
   //
   await app.listen(port, host, async () => {
